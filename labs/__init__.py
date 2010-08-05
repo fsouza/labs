@@ -1,4 +1,5 @@
 from flask import Flask
-app = Flask('labs')
+from labs.views.admin import admin
 
-import views
+app = Flask('labs')
+app.register_module(admin, url_prefix = '/admin')

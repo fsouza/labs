@@ -1,1 +1,0 @@
-from labs import app
