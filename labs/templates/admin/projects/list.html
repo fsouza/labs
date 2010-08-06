@@ -1,0 +1,21 @@
+{% extends "layout_admin.html" %}
+
+{% block content %}
+<h2>Projects list</h2>
+
+<table class="list_table">
+    <tr>
+        <th>Project name</th>
+        <th>Tasks</th>
+    </tr>
+    {% for project in projects %}
+    <tr>
+        <td>{{ project.name }}</td>
+        <td>Edit</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2"><a href="{{ url_for('new_project') }}" title="New project">New project</a></td>
+    </tr>
+</table>
+{% endblock %}

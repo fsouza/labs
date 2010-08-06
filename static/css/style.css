@@ -84,6 +84,7 @@ div.left-menu ul li a:hover {
 
 div.content {
     float: left;
+    width: 100%;
 }
 
 div.content h2 {
@@ -111,4 +112,18 @@ div.footer a {
 
 div.footer a:hover {
     font-weight: bold;
+}
+
+table.list_table {
+    width: 700px;
+    margin: 0 auto;
+}
+
+table.list_table tr td, table.list_table tr th {
+    border: #000 1px solid;
+    padding: 3px;
+}
+
+table.list_table tr th {
+    background-color: #EEE;
 }
