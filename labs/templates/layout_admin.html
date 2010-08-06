@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block h1 %}
+    Labs Administration
+{% endblock %}
+
+{% block subtitle %}
+    Welcome to Labs admin :)
+{% endblock %}
+
+{% block top_menu %}
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="{{ create_logout_url(url_for('frontend.index', _external = True)) }}">Logout</a></li>
+    </ul>
+{% endblock %}
