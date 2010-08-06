@@ -21,3 +21,8 @@ def list_projects():
 def new_project():
     form = ProjectForm()
     return render_template('admin/projects/new.html', form=form)
+
+@admin.route('/projects', methods=['POST'])
+@admin_login_required
+def create_project():
+    return 'Hello'
