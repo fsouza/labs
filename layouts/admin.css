@@ -1,0 +1,71 @@
+@import url("reset.css");
+
+body {
+    font-family: Verdana;
+}
+
+div.header {
+    background-color: #333;
+    margin: 0;
+    padding: 20px 5px;
+}
+
+div.header h1 {
+    font-size: 250%;
+    margin: 10px 0;
+    color: #CCC;
+}
+
+div.header p {
+    font-size: 75%;
+    color: #FFF;
+}
+
+div.menu {
+    background-color: #CCC;
+    position: relative;
+    height: 40px;
+}
+
+div.menu ul li {
+    float: left;
+    text-align: center;
+}
+
+div.menu ul li a {
+    padding: 10px;
+    display: block;
+    color: #222;
+    height: 25px;
+}
+
+div.menu ul li a:hover {
+    background-color: #FFF;
+}
+
+div.content {
+    clear: left;
+}
+
+div.content h2 {
+    font-size: 150%;
+    padding: 5px 0 20px 10px;
+}
+
+div.content p {
+    margin: 0 0 0 10px;
+}
+
+div.footer {
+    margin: 20px;
+    text-align: right;
+    font-size: 70%;
+}
+
+div.footer a {
+    color: #000;
+}
+
+div.footer a:hover {
+    font-weight: bold;
+}
