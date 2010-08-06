@@ -1,0 +1,114 @@
+@import url("reset.css");
+
+body {
+    font-family: Verdana;
+}
+
+div#main {
+    width: 100%;
+    margin: 0 auto;
+}
+
+div.header {
+    background-color: #333;
+    margin: 0;
+    padding: 20px 5px;
+    position: relative;
+}
+
+div.header h1 {
+    font-size: 250%;
+    margin: 10px 0;
+    color: #CCC;
+}
+
+div.header p {
+    font-size: 75%;
+    color: #FFF;
+}
+
+div.top-menu {
+    background-color: #CCC;
+    position: relative;
+    height: 40px;
+}
+
+div.top-menu ul li {
+    float: left;
+    text-align: center;
+}
+
+div.top-menu ul li a {
+    padding: 10px;
+    display: block;
+    color: #222;
+    height: 25px;
+}
+
+div.top-menu ul li a:hover {
+    background-color: #FFF;
+}
+
+div#middle {
+    clear: both;
+    min-height: 400px;
+}
+
+div.left-menu {
+    float: left;
+    width: 200px;
+    margin: 0 10px 0 0;
+}
+
+div.left-menu span {
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+div.left-menu ul {
+    margin: 0 0 0 10px;
+}
+
+div.left-menu ul li a {
+    display: block;
+    padding: 5px 0;
+    color: #1D385A;
+}
+
+div.left-menu ul li a:hover {
+    color: #F00;
+}
+
+div.content {
+    float: left;
+}
+
+div.content h2 {
+    font-size: 150%;
+    padding: 5px 0 20px 10px;
+    position: relative;
+}
+
+div.content p {
+    margin: 15px 0 0 10px;
+}
+
+div.footer {
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 70%;
+    clear: both;
+    background-color: #CCC;
+    position: relative;
+}
+
+div.footer a {
+    color: #000;
+}
+
+div.footer a:hover {
+    font-weight: bold;
+}

@@ -1,12 +1,40 @@
 <html>
     <head>
-      <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-      <title>{% block title %}{% endblock %}Francisco Souza Labs</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>{% block title %}{% endblock %} - Francisco Souza Labs</title>
+        <link rel="stylesheet" href="{{ url_for('.static', filename='css/style.css') }}" type="text/css" media="screen" charset="utf-8"/>
     </head>
     <body id="">
         <div id="main">
-            {% block content %}
-            {% endblock %}
+            <div class="header">
+                <h1>{% block h1 %}Labs{% endblock %}</h1>
+                <p>{% block subtitle %}A lightweight labs plataform.{% endblock %}</p>
+            </div>
+
+            <div class="top-menu">
+                <ul>
+                    {% block top_menu %}
+                    {% endblock %}
+                </ul>
+            </div>
+
+            <div id="middle">
+                <div class="left-menu">
+                    {% block left_menu %}
+                    {% endblock %}
+                </div>
+
+                <div class="content">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Copyright &copy; 2010 - Francisco Souza<br />
+                None rights reserved.<br />
+                Code available at <a href="http://github.com/franciscosouza/labs" target="_blank" rel="nofollow" title="This project at Github">Github</a>.</p>
+            </div>
         </div>
     </body>
 </html>
