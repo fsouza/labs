@@ -1,5 +1,22 @@
 {% extends "layout_admin.html" %}
 
 {% block content %}
+    <h2>New project</h2>
 
+    <p>Fill the form below to save a new project:</p>
+
+    {% from "/helpers/_form_helper.html" import render_field %}
+
+    <div class="form_new_project">
+        <form action="{{ url_for('create_project') }}" method="post" accept-charset="utf-8">
+            {{ form.csrf_token }}
+            <dl>
+                {{ render_field(form.name) }}
+                {{ render_field(form.github_url) }}
+                {{ render_field(form.documentation_url) }}
+                <dt></dt>
+                <dd class="submit_button"><input type="submit" name="submit" value="Save Project" id=""/></dd>
+            </dl>
+        </form>
+    </div>
 {% endblock %}
