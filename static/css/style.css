@@ -127,3 +127,33 @@ table.list_table tr td, table.list_table tr th {
 table.list_table tr th {
     background-color: #EEE;
 }
+
+div.form_new_register {
+    margin: 30px;
+}
+
+div.form_new_register dt {
+    float: left;
+    clear: both;
+    width: 150px;
+    padding: 8px;
+    height: 30px;
+}
+
+div.form_new_register dt label {
+    display: block;
+    margin: 0 0 0 5px;
+}
+
+div.form_new_register dd input[type=text] {
+    width: 400px;
+    height: 50px;
+    font-size: 18pt;
+}
+
+div.form_new_register dd input[type=submit] {
+    width: 150px;
+    margin: 10px 0;
+    height: 40px;
+    font-size: 14pt;
+}

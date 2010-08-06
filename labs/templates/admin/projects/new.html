@@ -7,7 +7,7 @@
 
     {% from "/helpers/_form_helper.html" import render_field %}
 
-    <div class="form_new_project">
+    <div class="form_new_register">
         <form action="{{ url_for('create_project') }}" method="post" accept-charset="utf-8">
             {{ form.csrf_token }}
             <dl>
@@ -15,7 +15,7 @@
                 {{ render_field(form.github_url) }}
                 {{ render_field(form.documentation_url) }}
                 <dt></dt>
-                <dd class="submit_button"><input type="submit" name="submit" value="Save Project" id=""/></dd>
+                <dd><input type="submit" name="submit" value="Save Project" id=""/></dd>
             </dl>
         </form>
     </div>
