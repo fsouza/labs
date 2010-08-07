@@ -172,3 +172,9 @@ div.form_new_register dd input[type=submit] {
     height: 40px;
     font-size: 14pt;
 }
+
+ul.errors li {
+    padding: 5px 0px 10px 180px;
+    margin: 0 0 10px 0;
+    color: #F00;
+}
