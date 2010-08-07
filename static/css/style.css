@@ -49,6 +49,21 @@ div.top-menu ul li a:hover {
     background-color: #FFF;
 }
 
+div.flash {
+    clear: both;
+    margin: 20px 100px;
+    padding: 10px 0 0 0;
+    text-align: center;
+    background-color: #045;
+    color: #FFF;
+    font-size: 96%;
+    font-weight: bold;
+}
+
+div.flash p {
+    padding: 0 0 10px 0;
+}
+
 div#middle {
     clear: both;
     min-height: 400px;
