@@ -18,6 +18,16 @@
                 </ul>
             </div>
 
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash">
+                         {% for message in messages %}
+                            <p>{{ message }}</p>
+                         {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
             <div id="middle">
                 <div class="left-menu">
                     {% block left_menu %}
