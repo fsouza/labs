@@ -1,0 +1,21 @@
+{% extends "layout_admin.html" %}
+
+{% block content %}
+<h2>Languages list</h2>
+
+<table class="list_table">
+    <tr>
+        <th>Name</th>
+        <th>Tasks</th>
+    </tr>
+    {% for language in languages %}
+    <tr>
+        <td>{{ language.name }}</td>
+        <td>Edit</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2"><a href="{{ url_for('new_language') }}" title="New project">New language</a></td>
+    </tr>
+</table>
+{% endblock %}

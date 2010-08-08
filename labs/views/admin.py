@@ -1,5 +1,5 @@
 from flask import Module, render_template, flash, redirect, url_for
-from labs.models import Project
+from labs.models import Project, ProgrammingLanguage
 from labs.forms import ProjectForm
 
 admin = Module(__name__)
@@ -30,3 +30,8 @@ def create_project():
         flash('Project saved on the database')
         return redirect(url_for('list_projects'))
     return render_template('admin/projects/new.html', form=form)
+
+@admin.route('/languages')
+def list_languages():
+    languages = ProgrammingLanguage.all().order('name')
+    return render_template('admin/languages/list.html', languages=languages)
