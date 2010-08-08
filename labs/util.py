@@ -12,3 +12,14 @@ def slugify(text, delim=u'-'):
             result.append(word)
     return unicode(delim.join(result))
 
+def generate_slug_field(model, field, slug_field_name = 'slug'):
+    slug = slugify(field)
+    new_slug = slug
+    counter = 1
+    query = '%s =' % slug_field_name
+
+    while model.all().filter(query, new_slug).count() > 0:
+        new_slug = '%s-%d' %(slug, counter)
+        counter += 1
+
+    return new_slug
