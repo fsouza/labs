@@ -21,4 +21,5 @@ class TestModels(unittest.TestCase):
         assert_equals(self.language.slug, u'python')
 
     def tearDown(self):
+        self.language.delete()
         self.mocker.restore()
