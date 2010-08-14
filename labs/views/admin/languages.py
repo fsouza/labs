@@ -30,6 +30,13 @@ def edit_language(slug):
     form.name.data = language.name
     return render_template('admin/languages/edit.html', form=form, language=language)
 
-@admin.route('/languages/<slug>', methods=['PUT'])
+@admin.route('/languages/<slug>', methods=['POST'])
 def update_language(slug):
-    return 'Hi'
+    form = LanguageForm()
+    if form.validate_on_submit():
+        language = ProgrammingLanguage.all().filter('slug =', slug).get()
+        language.name = form.name.data
+        language.put()
+        flash('Programming language "%s" updated.' %language.name)
+        return redirect(url_for('list_languages'))
+    return render_template('admin/languages/edit.html', form=form, language=language)
