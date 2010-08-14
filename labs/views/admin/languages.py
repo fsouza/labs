@@ -40,3 +40,10 @@ def update_language(slug):
         flash('Programming language "%s" updated.' %language.name)
         return redirect(url_for('list_languages'))
     return render_template('admin/languages/edit.html', form=form, language=language)
+
+@admin.route('/languages/<slug>/delete', method=['GET'])
+def delete_language(slug):
+    language = ProgrammingLanguage.all().filter('slug = ', slug).get()
+    language.delete()
+    flash('Language successful deleted.')
+    return redirect(url_for('list_languages'))
