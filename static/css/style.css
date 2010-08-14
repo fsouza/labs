@@ -166,6 +166,13 @@ div.form_new_register dd input[type=text] {
     font-size: 18pt;
 }
 
+div.form_new_register dd select {
+    width: 400px;
+    height: 50px;
+    font-size: 14pt;
+    padding: 10px 0 0 5px;
+}
+
 div.form_new_register dd input[type=submit] {
     width: 150px;
     margin: 10px 0;
