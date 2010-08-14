@@ -7,9 +7,10 @@ class ProjectForm(wtf.Form):
     github_url = wtf.TextField(u'Github URL')
     documentation_url = wtf.TextField(u'Documentation URL')
 
-    def set_programming_languages_options(self, languages):
+    def set_programming_languages_choices(self, languages):
         """Set the programming languages options"""
-        self.programming_language.options = [(l.slug, l.name) for l in languages]
+        self.programming_language.choices = [(l.slug, l.name) for l in languages]
+        self.programming_language.choices.insert(0, ('', 'Select the language'))
 
 class LanguageForm(wtf.Form):
     name = wtf.TextField(u'Name', validators=[validators.Required()])
