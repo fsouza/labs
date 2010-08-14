@@ -50,3 +50,14 @@ def create_language():
         flash('Programming language "%s" saved on the database.' % language.name)
         return redirect(url_for('list_languages'))
     return render_template('admin/languages/new.html', form=form)
+
+@admin.route('/languages/<slug>/edit', methods=['GET'])
+def edit_language(slug):
+    language = ProgrammingLanguage.all().filter('slug = ', slug).get()
+    form = LanguageForm()
+    form.name.data = language.name
+    return render_template('admin/languages/edit.html', form=form, language=language)
+
+@admin.route('/languages/<slug>', methods=['PUT'])
+def update_language(slug):
+    return 'Hi'
