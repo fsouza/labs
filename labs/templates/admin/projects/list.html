@@ -5,17 +5,19 @@
 
 <table class="list_table">
     <tr>
-        <th>Project name</th>
+        <th width="40%">Programming language</th>
+        <th width="40%">Project name</th>
         <th>Tasks</th>
     </tr>
     {% for project in projects %}
     <tr>
+        <td>{{ project.language.name }}</td>
         <td>{{ project.name }}</td>
         <td>Edit</td>
     </tr>
     {% endfor %}
     <tr>
-        <td colspan="2"><a href="{{ url_for('new_project') }}" title="New project">New project</a></td>
+        <td colspan="3"><a href="{{ url_for('new_project') }}" title="New project">New project</a></td>
     </tr>
 </table>
 {% endblock %}
