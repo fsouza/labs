@@ -31,3 +31,10 @@ def create_project():
         flash('Project saved on the database')
         return redirect(url_for('list_projects'))
     return render_template('admin/projects/new.html', form=form)
+
+@admin.route('/project/<slug>/delete')
+def delete_project(slug):
+    project = Project.all().filter('slug =', slug).get()
+    project.delete()
+    flash('Project successful deleted')
+    return redirect(url_for('list_projects'))

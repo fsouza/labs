@@ -1,19 +1,27 @@
 {% extends "layout_admin.html" %}
 
+{% block script %}
+function delete_project(name, url) {
+    if (confirm('Are you sure to delete the project ' + name + '?')) {
+        window.location.href = url;
+    }
+}
+{% endblock %}
+
 {% block content %}
 <h2>Projects list</h2>
 
 <table class="list_table">
     <tr>
-        <th width="40%">Programming language</th>
-        <th width="40%">Project name</th>
+        <th>Language</th>
+        <th>Project name</th>
         <th>Tasks</th>
     </tr>
     {% for project in projects %}
     <tr>
         <td>{{ project.language.name }}</td>
         <td>{{ project.name }}</td>
-        <td>Edit</td>
+        <td>Edit <a href="javascript:void(0);" onclick="delete_project('{{ project.name }}', '{{ url_for('delete_project', slug=project.slug) }}');">Delete</a></td>
     </tr>
     {% endfor %}
     <tr>
