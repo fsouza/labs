@@ -1,7 +1,7 @@
 import unittest
 import labs
 import mocker
-from nose.tools import assert_equals, assert_true
+from nose.tools import assert_equals
 
 class TestHooks(unittest.TestCase):
 
