@@ -1,6 +1,6 @@
 from flask import Module, render_template, flash, redirect, url_for
 from labs.models import Project, ProgrammingLanguage
-from labs.forms import ProjectForm
+from labs.forms import ProjectForm, LanguageForm
 
 admin = Module(__name__)
 
@@ -13,7 +13,7 @@ def list_projects():
     projects = Project.all().order('name')
     return render_template('admin/projects/list.html', projects=projects)
 
-@admin.route('/projects/new', methods=['GET'])
+@admin.route('/projects/new')
 def new_project():
     form = ProjectForm()
     return render_template('admin/projects/new.html', form=form)
@@ -35,3 +35,18 @@ def create_project():
 def list_languages():
     languages = ProgrammingLanguage.all().order('name')
     return render_template('admin/languages/list.html', languages=languages)
+
+@admin.route('/languages/new')
+def new_language():
+    form = LanguageForm()
+    return render_template('admin/languages/new.html', form=form)
+
+@admin.route('/languages', methods=['POST'])
+def create_language():
+    form = LanguageForm()
+    if form.validate_on_submit():
+        language = ProgrammingLanguage(name = form.name.data)
+        language.put()
+        flash('Programming language "%s" saved on the database.' % language.name)
+        return redirect(url_for('list_languages'))
+    return render_template('admin/languages/new.html', form=form)

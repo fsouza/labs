@@ -1,0 +1,20 @@
+{% extends "layout_admin.html" %}
+
+{% block content %}
+    <h2>New programming language</h2>
+
+    <p>Fill the form below to save a new programming language:</p>
+
+    {% from "/helpers/_form_helper.html" import render_field %}
+
+    <div class="form_new_register">
+        <form action="{{ url_for('create_language') }}" method="post" accept-charset="utf-8">
+            {{ form.csrf_token }}
+            <dl>
+                {{ render_field(form.name) }}
+                <dt></dt>
+                <dd><input type="submit" name="submit" value="Save Language" id=""/></dd>
+            </dl>
+        </form>
+    </div>
+{% endblock %}
