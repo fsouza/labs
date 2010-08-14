@@ -1,4 +1,6 @@
-test: unit functional
+tests: clean
+	@echo 'Running all tests...'
+	@nosetests -s --verbosity=2 -w tests --with-coverage --cover-package=labs --with-gae --gae-application=.
 
 functional: clean
 	@echo 'Running functional tests...'
