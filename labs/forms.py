@@ -5,3 +5,6 @@ class ProjectForm(wtf.Form):
     name = wtf.TextField('Name', validators=[validators.Required()])
     github_url = wtf.TextField('Github URL')
     documentation_url = wtf.TextField('Documentation URL')
+
+class LanguageForm(wtf.Form):
+    name = wtf.TextField('Name', validators=[validators.Required()])
