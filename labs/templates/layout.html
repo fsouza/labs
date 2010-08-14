@@ -3,6 +3,13 @@
         <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
         <title>{% block title %}{% endblock %} - Francisco Souza Labs</title>
         <link rel="stylesheet" href="{{ url_for('.static', filename='css/style.css') }}" type="text/css" media="screen" charset="utf-8"/>
+
+        <script type="text/javascript" language="javascript" charset="utf-8">
+        //<![CDATA[
+            {% block script %}
+            {% endblock %}
+        //]]>
+        </script>
     </head>
     <body id="">
         <div id="main">
@@ -43,7 +50,7 @@
             </div>
 
             <div class="footer">
-                <p>Copyright &copy; 2010 - Francisco Souza<br />
+                <p>Copyright &copy; 2010 - <a href="http://www.franciscosouza.net" title="Francisco Souza" target="_blank">Francisco Souza</a><br />
                 None rights reserved.<br />
                 Code available at <a href="http://github.com/franciscosouza/labs" target="_blank" rel="nofollow" title="This project at Github">Github</a>.</p>
             </div>
