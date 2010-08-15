@@ -2,6 +2,12 @@ deploy:
 	@echo 'Deploying...'
 	@/usr/local/google_appengine/appcfg.py update .
 
+bootstrap:
+	@echo 'Installing all dependencies for development :)'
+	@echo ''
+	@echo 'Remember that you should have pip installed'
+	@pip install -r dev-reqs.txt
+
 tests: clean
 	@echo 'Running all tests...'
 	@nosetests -s --verbosity=2 -w tests --with-coverage --cover-package=labs --with-gae --gae-application=.
