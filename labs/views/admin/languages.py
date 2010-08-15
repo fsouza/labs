@@ -33,8 +33,8 @@ def edit_language(slug):
 @admin.route('/languages/<slug>', methods=['POST'])
 def update_language(slug):
     form = LanguageForm()
+    language = ProgrammingLanguage.all().filter('slug =', slug).get()
     if form.validate_on_submit():
-        language = ProgrammingLanguage.all().filter('slug =', slug).get()
         language.name = form.name.data
         language.put()
         flash('Programming language "%s" updated.' %language.name)
