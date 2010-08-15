@@ -2,6 +2,9 @@ deploy:
 	@echo 'Deploying...'
 	@/usr/local/google_appengine/appcfg.py update .
 
+run:
+	@/usr/local/google_appengine/dev_appserver.py .
+
 bootstrap:
 	@echo 'Installing all dependencies for development :)'
 	@echo ''
