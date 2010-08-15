@@ -1,3 +1,7 @@
+deploy:
+	@echo 'Deploying...'
+	@/usr/local/google_appengine/appcfg.py update .
+
 tests: clean
 	@echo 'Running all tests...'
 	@nosetests -s --verbosity=2 -w tests --with-coverage --cover-package=labs --with-gae --gae-application=.
