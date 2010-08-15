@@ -44,6 +44,23 @@ def edit_project(slug):
     form.set_selected_programming_language(project.language)
     return render_template('admin/projects/edit.html', form=form, project=project)
 
+@admin.route('/projects/<slug>', methods=['POST'])
+def update_project(slug):
+    project = Project.all().filter('slug =', slug).get()
+    languages = ProgrammingLanguage.all()
+    form = ProjectForm()
+    form.set_programming_languages_choices(languages)
+    if form.validate_on_submit():
+        language = ProgrammingLanguage.all().filter('slug =', form.programming_language.data).get()
+        project.name = form.name.data
+        project.github_url = form.github_url.data
+        project.documentation_url = form.documentation_url.data
+        project.language = language
+        project.put()
+        flash('Project updated')
+        return redirect(url_for('list_projects'))
+    return render_template('admin/projects/edit.html', form=form, project=project)
+
 @admin.route('/projects/<slug>/delete')
 def delete_project(slug):
     project = Project.all().filter('slug =', slug).get()

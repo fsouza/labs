@@ -8,7 +8,7 @@
     {% from "/helpers/_form_helper.html" import render_field %}
 
     <div class="form_new_register">
-        <form action="{{ url_for('update_project') }}" method="post" accept-charset="utf-8">
+        <form action="{{ url_for('update_project', slug=project.slug) }}" method="post" accept-charset="utf-8">
             {{ form.csrf_token }}
             <dl>
                 {{ render_field(form.programming_language) }}

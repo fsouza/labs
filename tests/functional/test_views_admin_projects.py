@@ -3,6 +3,7 @@ import mocker
 import labs
 from nose.tools import assert_true, assert_equals
 from lxml import html
+from labs.models import ProgrammingLanguage, Project
 
 class TestAdminProjects(unittest.TestCase):
 
@@ -10,7 +11,6 @@ class TestAdminProjects(unittest.TestCase):
         self.mocker = mocker.Mocker()
         self.client = labs.app.test_client()
 
-        from labs.models import ProgrammingLanguage, Project
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
 
@@ -71,6 +71,28 @@ class TestAdminProjects(unittest.TestCase):
         assert_equals(github_field.value, self.project.github_url)
         assert_equals(docs_field.value, '')
         assert_equals(selected_language.text, self.project.language.name)
+
+    def test_update_a_project(self):
+        "Should update a project with given data by post"
+        self._mock_logged_in(times = 2)
+        project = Project(name = u'The big project', language = self.language)
+        project.put()
+        slug = project.slug
+        github_url = 'http://github.com/franciscosouza/labs'
+        data = {
+            'name' : project.name,
+            'programming_language' : project.language.slug,
+            'github_url' : github_url
+        }
+        self.client.post('/admin/projects/%s' % slug, data = data, follow_redirects = True)
+        project = Project.all().filter('slug =', slug).get()
+        assert_equals(project.github_url, github_url)
+
+    def test_failing_update(self):
+        "Should not update if the data was not provided"
+        self._mock_logged_in(times = 2)
+        response = self.client.post('/admin/projects/%s' % self.project.slug, data = {}, follow_redirects = True)
+        assert_true('This field is required' in response.data)
 
     def test_delete_a_project(self):
         "Should delete a project on URL /projects/<slug>/delete"

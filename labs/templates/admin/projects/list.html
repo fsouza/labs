@@ -21,7 +21,7 @@ function delete_project(name, url) {
     <tr>
         <td>{{ project.language.name }}</td>
         <td>{{ project.name }}</td>
-        <td>Edit <a href="javascript:void(0);" onclick="delete_project('{{ project.name }}', '{{ url_for('delete_project', slug=project.slug) }}');">Delete</a></td>
+        <td><a href="{{ url_for('edit_project', slug=project.slug) }}">Edit</a> <a href="javascript:void(0);" onclick="delete_project('{{ project.name }}', '{{ url_for('delete_project', slug=project.slug) }}');">Delete</a></td>
     </tr>
     {% endfor %}
     <tr>
