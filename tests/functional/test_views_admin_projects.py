@@ -7,7 +7,7 @@ class TestAdminProjects(unittest.TestCase):
 
     def setUp(self):
         self.mocker = mocker.Mocker()
-        self.app = labs.app.test_client()
+        self.client = labs.app.test_client()
 
         from labs.models import ProgrammingLanguage
         self.language = ProgrammingLanguage(name = u'Python')
@@ -23,13 +23,13 @@ class TestAdminProjects(unittest.TestCase):
     def test_list_projects(self):
         "Should list all projects in /admin/projects"
         self._mock_logged_in()
-        response = self.app.get('/admin/projects')
+        response = self.client.get('/admin/projects')
         assert_true('Projects list' in response.data)
 
     def test_project_form(self):
         "Should show a form for new projects"
         self._mock_logged_in()
-        response = self.app.get('/admin/projects/new')
+        response = self.client.get('/admin/projects/new')
         assert_true('<h2>New project</h2>' in response.data)
 
     def test_create_a_project(self):
@@ -42,7 +42,7 @@ class TestAdminProjects(unittest.TestCase):
             'name' : expected_name,
             'programming_language' : self.language.slug,
         }
-        response = self.app.post('/admin/projects', data = data, follow_redirects = True)
+        response = self.client.post('/admin/projects', data = data, follow_redirects = True)
         from labs.models import Project
         project = Project.all().filter('slug = ', expected_slug).get()
         assert_equals(project.name, expected_name)
@@ -50,7 +50,7 @@ class TestAdminProjects(unittest.TestCase):
     def test_validate_creating_a_project(self):
         "Should validate the new project form"
         self._mock_logged_in(times = 2)
-        response = self.app.post('/admin/projects', data = {}, follow_redirects = True)
+        response = self.client.post('/admin/projects', data = {}, follow_redirects = True)
         assert_true('This field is required' in response.data)
 
     def test_delete_a_project(self):
@@ -61,7 +61,7 @@ class TestAdminProjects(unittest.TestCase):
         project.put()
         project_slug = project.slug
         url = '/admin/projects/%s/delete' %(project_slug)
-        response = self.app.get(url)
+        response = self.client.get(url)
         project = Project.all().filter('slug = ', project_slug).get()
         assert_true(project is None)
 
