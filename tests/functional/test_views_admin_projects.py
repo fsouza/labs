@@ -2,6 +2,7 @@ import unittest
 import mocker
 import labs
 from nose.tools import assert_true, assert_equals
+from lxml import html
 
 class TestAdminProjects(unittest.TestCase):
 
@@ -9,9 +10,12 @@ class TestAdminProjects(unittest.TestCase):
         self.mocker = mocker.Mocker()
         self.client = labs.app.test_client()
 
-        from labs.models import ProgrammingLanguage
+        from labs.models import ProgrammingLanguage, Project
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
+
+        self.project = Project(name = u'Testing everything', github_url = u'http://github.com/franciscosouza/test', language = self.language)
+        self.project.put()
 
     def _mock_logged_in(self, times = 1):
         logged_in = self.mocker.replace('google.appengine.api.users.is_current_user_admin')
@@ -52,6 +56,21 @@ class TestAdminProjects(unittest.TestCase):
         self._mock_logged_in(times = 2)
         response = self.client.post('/admin/projects', data = {}, follow_redirects = True)
         assert_true('This field is required' in response.data)
+
+    def test_form_edit_project(self):
+        "Should show a form with the project data on /admin/projects/<slug>/edit"
+        self._mock_logged_in()
+        response = self.client.get('/admin/projects/%s/edit' % self.project.slug)
+        dom = html.fromstring(response.data)
+        name_field = dom.xpath('//input[@type="text" and @name="name"]')[0]
+        github_field = dom.xpath('//input[@type="text" and @name="github_url"]')[0]
+        docs_field = dom.xpath('//input[@type="text" and @name="documentation_url"]')[0]
+        language_select = dom.xpath('//select[@name="programming_language"]')[0]
+        selected_language = language_select.xpath('//option[@selected="selected"]')[0]
+        assert_equals(name_field.value, self.project.name)
+        assert_equals(github_field.value, self.project.github_url)
+        assert_equals(docs_field.value, '')
+        assert_equals(selected_language.text, self.project.language.name)
 
     def test_delete_a_project(self):
         "Should delete a project on URL /projects/<slug>/delete"

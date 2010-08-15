@@ -12,5 +12,9 @@ class ProjectForm(wtf.Form):
         self.programming_language.choices = [(l.slug, l.name) for l in languages]
         self.programming_language.choices.insert(0, ('', 'Select the language'))
 
+    def set_selected_programming_language(self, language):
+        """Set the selected programming language at the select box"""
+        self.programming_language.data = language.slug
+
 class LanguageForm(wtf.Form):
     name = wtf.TextField(u'Name', validators=[validators.Required()])

@@ -32,6 +32,18 @@ def create_project():
         return redirect(url_for('list_projects'))
     return render_template('admin/projects/new.html', form=form)
 
+@admin.route('/projects/<slug>/edit')
+def edit_project(slug):
+    project = Project.all().filter('slug =', slug).get()
+    languages = ProgrammingLanguage.all()
+    form = ProjectForm()
+    form.name.data = project.name
+    form.github_url.data = project.github_url
+    form.documentation_url.data = project.documentation_url
+    form.set_programming_languages_choices(languages)
+    form.set_selected_programming_language(project.language)
+    return render_template('admin/projects/edit.html', form=form, project=project)
+
 @admin.route('/projects/<slug>/delete')
 def delete_project(slug):
     project = Project.all().filter('slug =', slug).get()
