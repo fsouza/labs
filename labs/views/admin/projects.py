@@ -11,23 +11,15 @@ def list_projects():
 @admin.route('/projects/new')
 def new_project():
     languages = ProgrammingLanguage.all()
-    form = ProjectForm()
-    form.set_programming_languages_choices(languages)
+    form = ProjectForm(languages)
     return render_template('admin/projects/new.html', form=form)
 
 @admin.route('/projects', methods=['POST'])
 def create_project():
-    form = ProjectForm()
     languages = ProgrammingLanguage.all()
-    form.set_programming_languages_choices(languages)
+    form = ProjectForm(languages)
     if form.validate_on_submit():
-        language = ProgrammingLanguage.all().filter('slug =', form.programming_language.data).get()
-        project = Project(name = form.name.data,
-                          github_url = form.github_url.data,
-                          documentation_url = form.documentation_url.data,
-                          language = language
-                  )
-        project.put()
+        form.save()
         flash('Project saved on the database')
         return redirect(url_for('list_projects'))
     return render_template('admin/projects/new.html', form=form)
@@ -36,27 +28,17 @@ def create_project():
 def edit_project(slug):
     project = Project.all().filter('slug =', slug).get()
     languages = ProgrammingLanguage.all()
-    form = ProjectForm()
-    form.name.data = project.name
-    form.github_url.data = project.github_url
-    form.documentation_url.data = project.documentation_url
-    form.set_programming_languages_choices(languages)
-    form.set_selected_programming_language(project.language)
+    form = ProjectForm(languages, project)
     return render_template('admin/projects/edit.html', form=form, project=project)
 
 @admin.route('/projects/<slug>', methods=['POST'])
 def update_project(slug):
     project = Project.all().filter('slug =', slug).get()
     languages = ProgrammingLanguage.all()
-    form = ProjectForm()
-    form.set_programming_languages_choices(languages)
+    form = ProjectForm(languages)
     if form.validate_on_submit():
-        language = ProgrammingLanguage.all().filter('slug =', form.programming_language.data).get()
-        project.name = form.name.data
-        project.github_url = form.github_url.data
-        project.documentation_url = form.documentation_url.data
-        project.language = language
-        project.put()
+        form.model = project
+        form.save()
         flash('Project updated')
         return redirect(url_for('list_projects'))
     return render_template('admin/projects/edit.html', form=form, project=project)
