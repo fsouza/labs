@@ -185,3 +185,12 @@ ul.errors li {
     margin: 0 0 10px 0;
     color: #F00;
 }
+
+ul.projects_list {
+    margin: 0 0 0 70px;
+    list-style: square outside url('/static/images/icon.png');
+}
+
+ul.projects_list li {
+    padding-top: 20px;
+}
