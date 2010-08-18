@@ -11,3 +11,8 @@ def index():
 def show_project(language_slug, project_slug):
     project = Project.all().filter('slug = ', project_slug).get()
     return render_template('frontend/projects/show.html', project=project)
+
+@frontend.route('/projects')
+def list_projects():
+    projects = Project.all()
+    return render_template('frontend/projects/list.html', projects=projects)

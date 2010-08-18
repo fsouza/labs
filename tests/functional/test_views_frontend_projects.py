@@ -14,7 +14,7 @@ class TestFrontendProjects(unittest.TestCase):
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
 
-        self.project = Project(name = u'Labs', language = self.language, github_url = 'http://github.com/franciscosouza/talks')
+        self.project = Project(name = u'Talks', language = self.language, github_url = 'http://github.com/franciscosouza/talks')
         self.project.put()
 
         self.project_url = '/%s/%s' %(self.language.slug, self.project.slug)
@@ -32,6 +32,20 @@ class TestFrontendProjects(unittest.TestCase):
         path = '//a[@href="%s"]' % self.project.github_url
         link_list = dom.xpath(path)
         assert_equals(len(link_list), 1)
+
+    def test_list_projects(self):
+        "Should list all projects on /projects"
+        mocked_url_for = self.mocker.replace('flask.url_for')
+        mocked_url_for(mocker.ANY, language_slug = self.project.language.slug, project_slug = self.project.slug)
+        self.mocker.result(self.project_url)
+        self.mocker.replay()
+
+        response = self.client.get('/projects')
+        dom = html.fromstring(response.data)
+        project_link_list = dom.xpath('//a[@href="%s"]' % self.project_url)
+        assert_true(len(project_link_list) > 0)
+
+        self.mocker.verify()
 
     def tearDown(self):
         self.mocker.restore()
