@@ -5,7 +5,7 @@ frontend = Module(__name__)
 
 @frontend.route('/')
 def index():
-    return 'Welcome to the Home'
+    return render_template('frontend/index.html')
 
 @frontend.route('/<language_slug>/<project_slug>')
 def show_project(language_slug, project_slug):
