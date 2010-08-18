@@ -2,7 +2,8 @@ import unittest
 import mocker
 import labs
 from labs.models import ProgrammingLanguage, Project
-from nose.tools import assert_true
+from nose.tools import assert_true, assert_equals
+from lxml import html
 
 class TestFrontendProjects(unittest.TestCase):
 
@@ -13,18 +14,24 @@ class TestFrontendProjects(unittest.TestCase):
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
 
-        self.project = Project(name = u'Labs', language = self.language, github_url = 'http://github.com/franciscosouza/labs')
+        self.project = Project(name = u'Labs', language = self.language, github_url = 'http://github.com/franciscosouza/talks')
         self.project.put()
+
+        self.url = '/%s/%s' %(self.language.slug, self.project.slug)
 
     def test_show_a_project(self):
         "Should show a project in the URL /<language-slug>/<project-slug>"
-        url = '/%s/%s' %(self.language.slug, self.project.slug)
         title = '<h2>%s</h2>' % self.project.name
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         assert_true(title in response.data)
 
     def test_link_github(self):
         "Should link Github repository when it is present when viewing a project (/<language-slug>/<project-slug>)"
+        response = self.client.get(self.url)
+        dom = html.fromstring(response.data)
+        path = '//a[@href="%s"]' % self.project.github_url
+        link_list = dom.xpath(path)
+        assert_equals(len(link_list), 1)
 
     def tearDown(self):
         self.mocker.restore()
