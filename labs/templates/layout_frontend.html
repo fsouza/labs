@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block top_menu %}
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="">All projects</a></li>
+        <li><a href="{{ url_for('admin.index') }}">Administation</a></li>
+    </ul>
+{% endblock %}
