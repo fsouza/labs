@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 from labs.util import generate_slug_field
+from flask import url_for
 
 class ProgrammingLanguage(db.Model):
     name = db.StringProperty(required=True)
@@ -23,6 +24,10 @@ class Project(db.Model):
             self.slug = generate_slug_field(Project, self.name)
 
         return super(Project, self).put()
+
+    def get_url(self):
+        """Returns the project's absolute URL"""
+        return url_for('frontend.show_project', language_slug=self.language.slug, project_slug=self.slug)
 
 class Page(db.Model):
     title = db.StringProperty(required=True)

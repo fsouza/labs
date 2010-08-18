@@ -1,3 +1,4 @@
+#coding: utf-8
 import unittest
 import mocker
 from labs.models import Project, ProgrammingLanguage
@@ -15,6 +16,19 @@ class TestModels(unittest.TestCase):
         project = Project(name = u'My Project', language = self.language)
         project.put()
         assert_equals(project.slug, u'my-project')
+
+    def test_get_project_url(self):
+        "The project should contain a URL in the format: /<language-slug>/<project-slug> using url_for for building"
+        project = Project(name = u'Comunicação avançada', language = self.language)
+        project.put()
+        url = '/%s/%s' %(project.language.slug, project.slug)
+
+        url_for_mocked = self.mocker.replace('flask.url_for')
+        url_for_mocked(mocker.ANY, language_slug = self.language.slug, project_slug = project.slug)
+        self.mocker.result(url)
+        self.mocker.replay()
+
+        assert_equals(project.get_url(), url)
 
     def test_save_language_with_slug(self):
         "Before put a language, should generate a slug"
