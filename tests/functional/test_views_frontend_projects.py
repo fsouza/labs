@@ -17,17 +17,17 @@ class TestFrontendProjects(unittest.TestCase):
         self.project = Project(name = u'Labs', language = self.language, github_url = 'http://github.com/franciscosouza/talks')
         self.project.put()
 
-        self.url = '/%s/%s' %(self.language.slug, self.project.slug)
+        self.project_url = '/%s/%s' %(self.language.slug, self.project.slug)
 
     def test_show_a_project(self):
         "Should show a project in the URL /<language-slug>/<project-slug>"
         title = '<h2>%s</h2>' % self.project.name
-        response = self.client.get(self.url)
+        response = self.client.get(self.project_url)
         assert_true(title in response.data)
 
     def test_link_github(self):
         "Should link Github repository when it is present when viewing a project (/<language-slug>/<project-slug>)"
-        response = self.client.get(self.url)
+        response = self.client.get(self.project_url)
         dom = html.fromstring(response.data)
         path = '//a[@href="%s"]' % self.project.github_url
         link_list = dom.xpath(path)
