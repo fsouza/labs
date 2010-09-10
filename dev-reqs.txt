@@ -2,3 +2,4 @@ nose
 NoseGAE
 mocker
 lxml
+coverage
