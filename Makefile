@@ -10,6 +10,9 @@ bootstrap:
 	@echo ''
 	@echo 'Remember that you should have pip installed'
 	@pip install -r dev-reqs.txt
+	@echo 'Creating the settings.py file...'
+	@python mk_settings.py
+	@echo 'Done.'
 
 tests: clean
 	@echo 'Running all tests...'
