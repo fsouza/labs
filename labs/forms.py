@@ -1,6 +1,7 @@
 from flaskext import wtf
 from flaskext.wtf import validators
 from labs.models import ProgrammingLanguage, Project
+from wtforms.ext.appengine.db import model_form
 
 class ProjectForm(wtf.Form):
     name = wtf.TextField(u'Name', validators=[validators.Required()])
@@ -41,5 +42,4 @@ class ProjectForm(wtf.Form):
         self.programming_language.choices = [(l.slug, l.name) for l in languages]
         self.programming_language.choices.insert(0, ('', 'Select the language'))
 
-class LanguageForm(wtf.Form):
-    name = wtf.TextField(u'Name', validators=[validators.Required()])
+LanguageForm = model_form(ProgrammingLanguage, base_class = wtf.Form, exclude = ['slug'])
