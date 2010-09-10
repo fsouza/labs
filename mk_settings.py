@@ -6,8 +6,8 @@ import random
 import string
 letters_and_digits = string.letters + string.digits
 
-import time
-random.seed(time.time())
+from time import time
+random.seed(time())
 
 secret_key = "".join([random.choice(letters_and_digits) for x in xrange(32)])
 csrf_key = "".join([random.choice(letters_and_digits) for x in xrange(32)])
