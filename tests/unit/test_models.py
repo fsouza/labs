@@ -13,13 +13,13 @@ class TestModels(unittest.TestCase):
 
     def test_save_project_with_slug(self):
         "Before put a project, should generate a slug"
-        project = Project(name = u'My Project', language = self.language)
+        project = Project(name = u'My Project', language = self.language, description='Bla bla bla')
         project.put()
         assert_equals(project.slug, u'my-project')
 
     def test_get_project_url(self):
         "The project should contain a URL in the format: /<language-slug>/<project-slug> using url_for for building"
-        project = Project(name = u'Comunicação avançada', language = self.language)
+        project = Project(name = u'Comunicação avançada', language = self.language, description='Bla bla bla')
         project.put()
         url = '/%s/%s' %(project.language.slug, project.slug)
 

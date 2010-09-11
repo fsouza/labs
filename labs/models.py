@@ -15,6 +15,7 @@ class ProgrammingLanguage(db.Model):
 class Project(db.Model):
     name = db.StringProperty(required=True)
     slug = db.StringProperty()
+    description = db.TextProperty(required=True)
     github_url = db.StringProperty()
     documentation_url = db.StringProperty()
     language = db.ReferenceProperty(ProgrammingLanguage, required=True)
