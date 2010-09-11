@@ -13,6 +13,7 @@ class ProjectForm(BaseProjectForm):
         self.language.query.order('name')
         if model_instance:
             self.name.data = model_instance.name
+            self.description.data = model_instance.description
             self.language.data = str(model_instance.language.key())
             self.github_url.data = model_instance.github_url
             self.documentation_url.data = model_instance.documentation_url
@@ -25,12 +26,14 @@ class ProjectForm(BaseProjectForm):
             self.model.github_url = self.github_url.data
             self.model.documentation_url = self.documentation_url.data
             self.model.language = language
+            self.model.description = self.description.data
         else:
             self.model = Project(
                             name = self.name.data,
                             github_url = self.github_url.data,
                             documentation_url = self.documentation_url.data,
-                            language = language
+                            language = language,
+                            description = self.description.data
                         )
         self.model.put()
         return self.model

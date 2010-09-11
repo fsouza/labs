@@ -14,7 +14,7 @@ class TestFrontendProjects(unittest.TestCase):
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
 
-        self.project = Project(name = u'Talks', language = self.language, github_url = 'http://github.com/franciscosouza/talks')
+        self.project = Project(name = u'Talks', language = self.language, github_url = 'http://github.com/franciscosouza/talks', description = 'Bla bla bla')
         self.project.put()
 
         self.project_url = '/%s/%s' %(self.language.slug, self.project.slug)

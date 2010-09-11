@@ -14,7 +14,7 @@ class TestAdminProjects(unittest.TestCase):
         self.language = ProgrammingLanguage(name = u'Python')
         self.language.put()
 
-        self.project = Project(name = u'Testing everything', github_url = u'http://github.com/franciscosouza/test', language = self.language)
+        self.project = Project(name = u'Testing everything', github_url = u'http://github.com/franciscosouza/test', description = 'Bla bla bla', language = self.language)
         self.project.put()
 
     def _mock_logged_in(self, times = 1):
@@ -45,6 +45,7 @@ class TestAdminProjects(unittest.TestCase):
         data = {
             'name' : expected_name,
             'language' : self.language.key(),
+            'description' : 'Bla bla bla'
         }
         response = self.client.post('/admin/projects', data = data, follow_redirects = True)
         from labs.models import Project
@@ -75,13 +76,14 @@ class TestAdminProjects(unittest.TestCase):
     def test_update_a_project(self):
         "Should update a project with given data by post"
         self._mock_logged_in(times = 2)
-        project = Project(name = u'The big project', language = self.language)
+        project = Project(name = u'The big project', description='Bla bla bla', language = self.language)
         project.put()
         slug = project.slug
         github_url = 'http://github.com/franciscosouza/labs'
         data = {
             'name' : project.name,
             'language' : project.language.key(),
+            'description' : 'Bla bla bla',
             'github_url' : github_url
         }
         self.client.post('/admin/projects/%s' % slug, data = data, follow_redirects = True)
@@ -98,7 +100,7 @@ class TestAdminProjects(unittest.TestCase):
         "Should delete a project on URL /projects/<slug>/delete"
         self._mock_logged_in()
         from labs.models import Project
-        project = Project(name = u'Ruby on Rails', language = self.language)
+        project = Project(name = u'Ruby on Rails', description = 'Bla bla bla', language = self.language)
         project.put()
         project_slug = project.slug
         url = '/admin/projects/%s/delete' %(project_slug)
