@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for
-from labs.models import Project, ProgrammingLanguage
+from labs.models import Project
 from labs.forms import ProjectForm
 from labs.views.admin import admin
 
@@ -10,14 +10,12 @@ def list_projects():
 
 @admin.route('/projects/new')
 def new_project():
-    languages = ProgrammingLanguage.all()
-    form = ProjectForm(languages)
+    form = ProjectForm()
     return render_template('admin/projects/new.html', form=form)
 
 @admin.route('/projects', methods=['POST'])
 def create_project():
-    languages = ProgrammingLanguage.all()
-    form = ProjectForm(languages)
+    form = ProjectForm()
     if form.validate_on_submit():
         form.save()
         flash('Project saved on the database')
@@ -27,15 +25,13 @@ def create_project():
 @admin.route('/projects/<slug>/edit')
 def edit_project(slug):
     project = Project.all().filter('slug =', slug).get()
-    languages = ProgrammingLanguage.all()
-    form = ProjectForm(languages, project)
+    form = ProjectForm(project)
     return render_template('admin/projects/edit.html', form=form, project=project)
 
 @admin.route('/projects/<slug>', methods=['POST'])
 def update_project(slug):
     project = Project.all().filter('slug =', slug).get()
-    languages = ProgrammingLanguage.all()
-    form = ProjectForm(languages)
+    form = ProjectForm()
     if form.validate_on_submit():
         form.model = project
         form.save()

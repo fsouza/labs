@@ -44,7 +44,7 @@ class TestAdminProjects(unittest.TestCase):
         expected_slug = slugify(expected_name)
         data = {
             'name' : expected_name,
-            'programming_language' : self.language.slug,
+            'language' : self.language.key(),
         }
         response = self.client.post('/admin/projects', data = data, follow_redirects = True)
         from labs.models import Project
@@ -65,7 +65,7 @@ class TestAdminProjects(unittest.TestCase):
         name_field = dom.xpath('//input[@type="text" and @name="name"]')[0]
         github_field = dom.xpath('//input[@type="text" and @name="github_url"]')[0]
         docs_field = dom.xpath('//input[@type="text" and @name="documentation_url"]')[0]
-        language_select = dom.xpath('//select[@name="programming_language"]')[0]
+        language_select = dom.xpath('//select[@name="language"]')[0]
         selected_language = language_select.xpath('//option[@selected="selected"]')[0]
         assert_equals(name_field.value, self.project.name)
         assert_equals(github_field.value, self.project.github_url)
@@ -81,7 +81,7 @@ class TestAdminProjects(unittest.TestCase):
         github_url = 'http://github.com/franciscosouza/labs'
         data = {
             'name' : project.name,
-            'programming_language' : project.language.slug,
+            'language' : project.language.key(),
             'github_url' : github_url
         }
         self.client.post('/admin/projects/%s' % slug, data = data, follow_redirects = True)
