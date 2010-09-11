@@ -11,7 +11,7 @@
         <form action="{{ url_for('create_project') }}" method="post" accept-charset="utf-8">
             {{ form.csrf_token }}
             <dl>
-                {{ render_field(form.programming_language) }}
+                {{ render_field(form.language) }}
                 {{ render_field(form.name) }}
                 {{ render_field(form.github_url) }}
                 {{ render_field(form.documentation_url) }}
