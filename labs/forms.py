@@ -2,6 +2,7 @@ from flaskext import wtf
 from labs.models import ProgrammingLanguage, Project
 from wtforms.ext.appengine.db import model_form
 
+LanguageForm = model_form(ProgrammingLanguage, base_class = wtf.Form, exclude = ['slug'])
 BaseProjectForm = model_form(Project, base_class = wtf.Form, exclude = ['slug'])
 
 class ProjectForm(BaseProjectForm):
@@ -33,5 +34,3 @@ class ProjectForm(BaseProjectForm):
                         )
         self.model.put()
         return self.model
-
-LanguageForm = model_form(ProgrammingLanguage, base_class = wtf.Form, exclude = ['slug'])
