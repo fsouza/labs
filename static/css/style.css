@@ -194,3 +194,9 @@ ul.projects_list {
 ul.projects_list li {
     padding-top: 20px;
 }
+
+textarea.project_description {
+    width: 400px;
+    height: 300px;
+    font-size: 14pt;
+}
