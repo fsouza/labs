@@ -16,7 +16,7 @@ lines = []
 lines.append('DEBUG=True\n')
 lines.append('SECRET_KEY="%s"\n' % secret_key)
 lines.append('CSRF_ENABLED=True\n')
-lines.append('CSRF_SESSION_LKEY="%s"' % csrf_key)
+lines.append('CSRF_SESSION_KEY="%s"' % csrf_key)
 
 import os
 
