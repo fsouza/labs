@@ -32,9 +32,8 @@ update_flask:
 
 update_wtforms:
 	@echo 'Updating WTForms...'
-	@pip install wtforms -d deps --no-dependencies
-	@cd deps && unzip WTForms*
-	@cp -r deps/WTForms*/wtforms lib/
+	@pip install -e hg+http://bitbucket.org/franciscosouza/wtforms#egg=WTForms --src=deps --no-install --no-dependencies
+	@cp -r deps/wtforms/wtforms lib/
 	@echo 'Done.'
 
 update_flask_wtf:
