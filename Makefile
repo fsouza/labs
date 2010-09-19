@@ -5,7 +5,7 @@ deploy: production_deps tests
 run:
 	@/usr/local/google_appengine/dev_appserver.py .
 
-production_deps: update_werkezeug update_jinja2 update_flask update_wtforms update_flask_wtf update_simplejson
+production_deps: update_werkzeug update_jinja2 update_flask update_wtforms update_flask_wtf update_simplejson
 	@echo 'Cleaning deps dir'
 	@rm -rf deps/*
 
