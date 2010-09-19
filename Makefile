@@ -8,6 +8,7 @@ run:
 production_deps: update_werkzeug update_jinja2 update_flask update_wtforms update_flask_wtf update_simplejson
 	@echo 'Cleaning deps dir'
 	@rm -rf deps/*
+	@echo 'Done.'
 
 update_werkzeug:
 	@echo 'Updating Werkzeug...'
