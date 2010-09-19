@@ -17,7 +17,7 @@ class ReferencePropertyField(fields.SelectFieldBase):
         self.blank_text = blank_text
         self._set_data(None)
         if reference_class is None:
-            raise ValueError('Missing reference_class attribute in '
+            raise TypeError('Missing reference_class attribute in '
                              'ReferencePropertyField')
 
         self._ordered = False
@@ -78,7 +78,7 @@ class ReferencePropertyField(fields.SelectFieldBase):
                 if self.data == str(obj.key()):
                     break
             else:
-                raise ValidationError('Not a valid choice')
+                raise ValueError(self.gettext(u'Not a valid choice'))
 
 
 class StringListPropertyField(fields.TextAreaField):
