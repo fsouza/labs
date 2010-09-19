@@ -1,4 +1,5 @@
 from wtforms import fields, widgets
+from wtforms.validators import ValidationError
 
 class ReferencePropertyField(fields.SelectFieldBase):
     """
@@ -16,14 +17,32 @@ class ReferencePropertyField(fields.SelectFieldBase):
         self.blank_text = blank_text
         self._set_data(None)
         if reference_class is None:
-            raise TypeError('Missing reference_class attribute in '
+            raise ValueError('Missing reference_class attribute in '
                              'ReferencePropertyField')
 
-        self.query = reference_class.all()
+        self._ordered = False
+        self.reference_class = reference_class
+        self._create_query()
+
+    def _create_query(self):
+        self.query = self.reference_class.all()
+
+    def _get_ordered(self):
+        return self._ordered
+
+    def _set_ordered(self, value):
+        if value and self.label_attr:
+            self.query.order(self.label_attr)
+        else:
+            self._create_query()
+
+        self._ordered = value
+
+    ordered = property(_get_ordered, _set_ordered)
 
     def _get_data(self):
         if self._formdata is not None:
-            for obj in self.query:
+            for obj in self.queryset:
                 key = str(obj.key())
                 if key == self._formdata:
                     self._set_data(key)
@@ -59,7 +78,7 @@ class ReferencePropertyField(fields.SelectFieldBase):
                 if self.data == str(obj.key()):
                     break
             else:
-                raise ValueError(self.gettext(u'Not a valid choice'))
+                raise ValidationError('Not a valid choice')
 
 
 class StringListPropertyField(fields.TextAreaField):
