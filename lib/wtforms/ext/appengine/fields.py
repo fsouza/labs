@@ -42,7 +42,7 @@ class ReferencePropertyField(fields.SelectFieldBase):
 
     def _get_data(self):
         if self._formdata is not None:
-            for obj in self.queryset:
+            for obj in self.query:
                 key = str(obj.key())
                 if key == self._formdata:
                     self._set_data(key)
