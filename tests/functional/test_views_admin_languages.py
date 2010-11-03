@@ -36,8 +36,21 @@ class TestAdminLanguages(unittest.TestCase):
         from labs.util import slugify
         language_name = u'Haskell'
         language_slug = slugify(language_name)
-        self._mock_logged_in(times = 2) # Two times because follow_redirects on post will be true :)
+        self._mock_logged_in(times = 2)
         data = { 'name' : language_name }
+        response = self.client.post('/admin/languages', data = data, follow_redirects = True)
+        from labs.models import ProgrammingLanguage
+        language = ProgrammingLanguage.all().filter('slug =', language_slug).get()
+        assert_equals(language.name, language_name)
+
+    def test_create_a_unique_slug_to_a_duplicated_programming_language_name(self):
+        "Should generate a new slug to a duplicated programming language"
+        from labs.util import slugify
+        language_name = u'Haskell'
+        language_slug = slugify(language_name) + '-1'
+        self._mock_logged_in(times = 4)
+        data = { 'name' : language_name }
+        response = self.client.post('/admin/languages', data = data, follow_redirects = True)
         response = self.client.post('/admin/languages', data = data, follow_redirects = True)
         from labs.models import ProgrammingLanguage
         language = ProgrammingLanguage.all().filter('slug =', language_slug).get()

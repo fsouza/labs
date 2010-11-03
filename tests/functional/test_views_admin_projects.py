@@ -52,6 +52,23 @@ class TestAdminProjects(unittest.TestCase):
         project = Project.all().filter('slug = ', expected_slug).get()
         assert_equals(project.name, expected_name)
 
+    def test_create_a_duplicated_name_project(self):
+        "Should generate a new slug to a duplicated project"
+        self._mock_logged_in(times = 4)
+        expected_name = u'The project'
+        from labs.util import slugify
+        expected_slug = slugify(expected_name) + '-1'
+        data = {
+            'name' : expected_name,
+            'language' : self.language.key(),
+            'description' : 'Bla bla bla'
+        }
+        response = self.client.post('/admin/projects', data = data, follow_redirects = True)
+        response = self.client.post('/admin/projects', data = data, follow_redirects = True)
+        from labs.models import Project
+        project = Project.all().filter('slug = ', expected_slug).get()
+        assert_equals(project.name, expected_name)
+
     def test_validate_creating_a_project(self):
         "Should validate the new project form"
         self._mock_logged_in(times = 2)
