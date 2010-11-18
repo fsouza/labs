@@ -77,6 +77,8 @@ lxml:
 	@echo 'Installing lxml if needed...'
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
 
+build: bootstrap tests
+
 tests: dependencies clean
 	@echo 'Running all tests...'
 	@nosetests -s --verbosity=2 -w tests --with-coverage --cover-package=labs --with-gae --gae-application=.
