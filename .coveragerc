@@ -1,0 +1,6 @@
+[run]
+source=labs
+omit=*.htm,*.xml,*.html,*.txt,*.js
+
+[html]
+directory=cover

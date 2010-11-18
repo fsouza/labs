@@ -3,3 +3,4 @@
 .coverage
 labs/settings.py
 deps
+cover

@@ -77,7 +77,11 @@ lxml:
 	@echo 'Installing lxml if needed...'
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
 
-build: bootstrap tests
+build: bootstrap tests run_coverage
+
+run_coverage:
+	@echo 'Generating coverage HTML reports...'
+	@coverage html --rcfile=.coveragerc
 
 tests: dependencies clean
 	@echo 'Running all tests...'
@@ -95,4 +99,5 @@ clean:
 	@echo 'Cleaning...'
 	@find . -name "*.pyc" -exec rm -f {} \;
 	@rm -f .coverage
+	@rm -rf cover
 	@echo 'Done.'
